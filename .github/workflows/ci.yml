@@ -34,13 +34,12 @@ jobs:
       matrix:
         mpich: [false]
         lapack_vendor: [""]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-26.04, ubuntu-24.04, macos-latest]
         include:
           - lapack_vendor: "OpenBLAS"
             os: ubuntu-latest
             name: OpenBLAS
           - mpich: true
-            parallel: true
             os: ubuntu-latest
             name: MPICH
 
