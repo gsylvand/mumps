@@ -65,18 +65,18 @@ With the default options, under the `${MUMPS_BINARY_DIR}/lib` directory this res
 
 ```
 dmumps.lib
+smumps.lib
 mumps_common.lib
 pord.lib
-smumps.lib
 ```
 
 or with WSL / MSYS2
 
 ```
 libdmumps.a
+libsmumps.a
 libmumps_common.a
 libpord.a
-libsmumps.a
 ```
 
 ## Self test

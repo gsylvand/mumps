@@ -5,12 +5,17 @@
 [![ci_build](https://github.com/scivision/mumps-superbuild/actions/workflows/ci_build.yml/badge.svg)](https://github.com/scivision/mumps-superbuild/actions/workflows/ci_build.yml)
 [![oneapi-linux](https://github.com/scivision/mumps-superbuild/actions/workflows/oneapi-linux.yml/badge.svg)](https://github.com/scivision/mumps-superbuild/actions/workflows/oneapi-linux.yml)
 
-MUMPS is a Fortran library with optional C interfaces for MPI and/or OpenMP parallel
+MUMPS is a Fortran library by the
+MUMPS Technologies team co-founded by Jean-Yves L'Excellent from Graal / ROMA
+with optional C interfaces for MPI and/or OpenMP parallel
 (or serial `cmake --workflow nompi`) solving of sparse linear systems of equations.
-This repository provides a CMake superbuild project for MUMPS and optional MUMPS dependencies including ScaLAPACK, ParMETIS, and Scotch.
+This repository provides a CMake superbuild project using CMake's built-in
+[FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
+module for MUMPS and optional MUMPS dependencies including ScaLAPACK, ParMETIS, and Scotch.
 This CMake superbuild downloads the unmodified source tarfile from mumps-solver.org and builds.
 
-Optional support for CUDA GPA and xKBLAS GPU-accelerated BLAS is [available](./Readme_options.md).
+Optional support for CUDA GPA and xKBLAS GPU-accelerated BLAS is
+[available](./Readme_options.md).
 
 CMake builds MUMPS quickly and more conveniently than the original Makefiles. CMake allows easy reuse of MUMPS in external projects via any of:
 
@@ -47,14 +52,32 @@ for any questions about MUMPS itself.
 When building shared libraries with `-DBUILD_SHARED_LIBS=on`, the installed MUMPS libraries include relative RPATH entries (`$ORIGIN`, `$ORIGIN/..`) that allow runtime dependencies to be resolved relative to the installation location.
 This ensures correct resolution of MUMPS dependencies (BLAS, MPI, Scotch, etc.) without requiring environment setup through modules or `LD_LIBRARY_PATH`, especially when MUMPS is used as a transitive dependency of another library.
 
-## Build
+## MUMPS build library files
 
-From this repo's top directory:
+One-step configure and build with CMake workflow using default options:
 
 ```sh
-cmake -B build
-cmake --build build
+cmake --workflow --preset build
 ```
+
+The `${MUMPS_BINARY_DIR}/lib` directory contains library binaries.
+
+
+* libdmumps.a (real64)
+* libsmumps.a (real32)
+* libmumps_common.a (common MUMPS routines)
+* libpord.a  (PORD library)
+
+If using Intel oneAPI on
+[Windows](./Readme_Windows.md),
+correspondingly:
+
+* dmumps.lib
+* smumps.lib
+* mumps_common.lib
+* pord.lib
+
+### MUMPS build options
 
 Numerous MUMPS [build options are available](./Readme_options.md).
 
@@ -74,15 +97,6 @@ cmake -Bbuild --install-prefix /path/to/install/mumps
 
 cmake --install build
 ```
-
-The `${MUMPS_BINARY_DIR}/lib` directory contains library binaries.
-[Windows](./Readme_Windows.md)
-binaries have different names.
-
-* libdmumps.a (real64)
-* libsmumps.a (real32)
-* libmumps_common.a (common MUMPS routines)
-* libpord.a  (PORD library)
 
 If `-DMUMPS_parallel=no` was set, additional helper libraries are built in place of linking MPI libraries:
 
