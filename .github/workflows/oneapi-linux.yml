@@ -42,7 +42,7 @@ jobs:
         preset: [default, int64]
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: cache install oneAPI
       id: cache-install
