@@ -1,9 +1,9 @@
 # CMake >= 3.28 strongly recommended for build graph reliability
-cmake_minimum_required(VERSION 3.25...4.4)
+cmake_minimum_required(VERSION 3.25...4.5)
 # CMake >= 3.24 for FetchContent FIND_PACKAGE_ARGS
 # CMAKE >= 3.25 for block(), VALIDATOR on find_*()
 
-set(MUMPS_PROJECT_VERSION 5.9.0.4)
+set(MUMPS_PROJECT_VERSION 5.9.1.0)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   message(FATAL_ERROR "Please use out of source build:
@@ -107,9 +107,8 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL "LLVMFlang")
     message(WARNING "MUMPS: LLVM Flang with Ninja generator may fail to build. https://gitlab.kitware.com/cmake/cmake/-/issues/27702
     Recommend using Makefiles generator instead:   cmake -G \"${_g}\" -B build --fresh")
   endif()
-  # unconditional find because of "use omp_lib" that have existed possibly forever in some MUMPS sources,
-  # that GFortran ignores, but Flang does not ignore.
-  if(NOT MUMPS_openmp)
+
+  if(MUMPS_UPSTREAM_VERSION VERSION_LESS 5.9.1 AND NOT MUMPS_openmp)
     message(STATUS "Implementing dummy OpenMP to workaround MUMPS source files that use omp_lib but don't guard it with !$ sentinel")
     # OBJECT builds omp_lib.mod, but INTERFACE does not.
     add_library(mumps_dummy_openmp OBJECT src/dummy_openmp.f90)

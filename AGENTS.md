@@ -1,6 +1,7 @@
 
+## MUMPS < 5.9.1 Flang workaround
 
-## Flang workaround for MUMPS sources that use `omp_lib` but don't guard it with `!$ sentinel`.
+With MUMPS < 5.9.1, some MUMPS sources use `omp_lib` but don't guard it with `!$ sentinel`.
 
 A few of the MUMPS source files have unconditional `use omp_lib` statements:
 
