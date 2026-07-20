@@ -33,7 +33,7 @@ Example: minor release
 ## All releases
 
 [ ] Update the project(VERSION ...) in CMakeLists.txt to the latest release.
-[ ] use `cmake -E sha256sum build/_deps/mumps-tmp/MUMPS_${MUMPS_UPSTREAM_VERSION}.tar.gz` to get the SHA256 checksum of the downloaded archive for cmake/libraries.json under mumps_sha256 key.
+[ ] use `cmake -E sha256sum build/_deps/mumps-tmp/MUMPS_${MUMPS_UPSTREAM_VERSION}.tar.gz` to get the SHA256 checksum of the downloaded archive for cmake/sources.json under mumps_sha256 key.
 
 ## Packaging
 

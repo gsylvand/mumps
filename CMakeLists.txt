@@ -35,7 +35,7 @@ if(NOT DEFINED MUMPS_url)
 endif()
 
 if(DEFINED MUMPS_UPSTREAM_VERSION AND NOT DEFINED MUMPS_sha256)
-  string(JSON MUMPS_sha256 ERROR_VARIABLE _jerr GET ${json} "mumps_sha256" "${MUMPS_UPSTREAM_VERSION}")
+  string(JSON MUMPS_sha256 ERROR_VARIABLE _jerr GET ${source_json} "mumps_sha256" "${MUMPS_UPSTREAM_VERSION}")
   if(NOT _jerr AND MUMPS_sha256)
     set(MUMPS_hash URL_HASH SHA256=${MUMPS_sha256})
   else()

@@ -14,7 +14,7 @@ on:
       - "**.cmake"
       - "**.cmake.in"
       - "**.txt"
-      - "cmake/libraries.json"
+      - "cmake/*.json"
       - ".github/workflows/ci.yml"
       - "!scripts/*"
 

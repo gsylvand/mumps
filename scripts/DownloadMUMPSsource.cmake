@@ -18,7 +18,7 @@ if(NOT DEFINED cache OR cache STREQUAL "")
 endif()
 file(REAL_PATH "${cache}" cache)
 
-set(json_fn ${topdir}/cmake/libraries.json)
+set(json_fn ${topdir}/cmake/source.json)
 
 file(READ ${json_fn} _json)
 
