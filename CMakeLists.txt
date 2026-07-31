@@ -236,6 +236,23 @@ if(MUMPS_gemmt)
   endif()
 endif()
 
+# AVX512 VBMI instruction set accelerates adaptive precision with BLR (starting with mumps 5.9.0)
+if(MUMPS_ACTUAL_VERSION VERSION_GREATER_EQUAL 5.9.0 AND MUMPS_avx512vbmi)
+  include(cmake/avx512vbmi.cmake)
+  if(HAVE_AVX512VBMI)
+    message(STATUS "AVX-512 VBMI support detected.")
+    list(APPEND mumps_fdefs USE_AVX512_VBMI)
+    list(APPEND mumps_cdefs USE_AVX512_VBMI)
+    if(MSVC)
+        add_compile_options("$<$<COMPILE_LANGUAGE:C>:/arch:AVX512>")
+    else()
+        add_compile_options("$<$<COMPILE_LANGUAGE:C>:-mavx512vbmi;-mavx512vl>")
+    endif()
+  else()
+    message(FATAL_ERROR "The compiler does not support AVX-512 VBMI.")
+  endif()
+endif()
+
 # --- ordering libs
 
 set(ORDERING_DEFS pord)
